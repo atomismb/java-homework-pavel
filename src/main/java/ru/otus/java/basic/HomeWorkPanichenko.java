@@ -6,12 +6,10 @@ public class HomeWorkPanichenko {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите число от 1 до 5 для выбора метода");
-        while (true){
-        int methodNum;
-        do
-        {
+        while (true) {
+            int methodNum;
             methodNum = scanner.nextInt();
-        } while (methodNum < 1 || methodNum > 5);
+
             if (methodNum == 1) {
                 System.out.println("Метод greetings()");
                 greetings();
@@ -52,20 +50,23 @@ public class HomeWorkPanichenko {
                 }
 
 
-            } else if (methodNum < 1 && methodNum > 5) {
+            } else {
                 System.out.println("Вы ввели недопустимое число");
                 System.out.println("Введите число из диапазона 1-5");
+
 
             }
         }
 
-        //greetings();
-        //checkSign(0,1,-10);
-        //selectColour();
-        //compareNumbers();
-        //addOrSubtractAndPrint(100,7,false);
-
     }
+
+
+    //greetings();
+    //checkSign(0,1,-10);
+    //selectColour();
+    //compareNumbers();
+    //addOrSubtractAndPrint(100,7,false);
+
 
     public static void greetings() {
         System.out.println("Hello");
@@ -115,4 +116,6 @@ public class HomeWorkPanichenko {
         }
     }
 }
+
+
 
