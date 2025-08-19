@@ -7,8 +7,8 @@ public class HomeWorkPanichenko {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите число от 1 до 5 для выбора метода");
         while (true) {
-            int methodNum;
-            methodNum = scanner.nextInt();
+
+            int methodNum = scanner.nextInt();
 
             if (methodNum == 1) {
                 System.out.println("Метод greetings()");
@@ -23,32 +23,27 @@ public class HomeWorkPanichenko {
 
                 checkSign(a, b, c);
             } else if (methodNum == 3) {
-                System.out.println("Метод selectColour()");
-                selectColour();
+                System.out.println("Метод selectColor()");
+                selectColor();
             } else if (methodNum == 4) {
                 System.out.println("Метод compareNumbers()");
                 compareNumbers();
             } else if (methodNum == 5) {
-                boolean increment;
+
                 int percent = 50;
                 int range = (int) (Math.random() * 100 + 1);
+                boolean increment = range > percent;
                 int initValue = (int) (Math.random() * 100 + 1);
                 int delta = (int) (Math.random() * 10 + 1);
-                if (range > percent) {
-                    increment = true;
-                    System.out.println("Метод addOrSubtractAndPrint()");
+
+                System.out.println("Метод addOrSubtractAndPrint()");
+                if (increment) {
                     System.out.println("Инкремент положительный");
-                    System.out.println("Изначальное число = " + initValue + "; Дельта = " + delta);
-                    addOrSubtractAndPrint(initValue, delta, increment);
                 } else {
-                    increment = false;
-
-                    System.out.println("Метод addOrSubtractAndPrint()");
                     System.out.println("Инкремент отрицательный");
-                    System.out.println("Изначальное число = " + initValue + "; Дельта = " + delta);
-                    addOrSubtractAndPrint(initValue, delta, increment);
                 }
-
+                System.out.println("Изначальное число = " + initValue + "; Дельта = " + delta);
+                addOrSubtractAndPrint(initValue, delta, increment);
 
             } else {
                 System.out.println("Вы ввели недопустимое число");
@@ -59,13 +54,6 @@ public class HomeWorkPanichenko {
         }
 
     }
-
-
-    //greetings();
-    //checkSign(0,1,-10);
-    //selectColour();
-    //compareNumbers();
-    //addOrSubtractAndPrint(100,7,false);
 
 
     public static void greetings() {
@@ -84,11 +72,11 @@ public class HomeWorkPanichenko {
         }
     }
 
-    public static void selectColour() {
+    public static void selectColor() {
         int data = 99999;
         if (data <= 10) {
             System.out.println("Красный");
-        } else if (data > 10 && data <= 20) {
+        } else if (data <= 20) {
             System.out.println("Желтый");
         } else {
             System.out.println("Зеленый");
