@@ -8,7 +8,7 @@ public class HomeWorkPanichenko {
         Scanner scanner = new Scanner(System.in);
         }
 
-    public static void repeatRow(int rowNumber, String row) {
+    public static void repeatString(int rowNumber, String row) {
         for (int i = 0; i < rowNumber; i++) {
             System.out.println(row);
         }
@@ -28,17 +28,15 @@ public class HomeWorkPanichenko {
         for (int i = 0; i < array2.length; i++) {
             array2[i] = number;
         }
-        System.out.println(Arrays.toString(array2));
     }
 
-    public static void arrayIncrease(int number, int[] array3) {
+    public static void increaseArrayElements(int number, int[] array3) {
         for (int i = 0; i < array3.length; i++) {
             array3[i] += number;
         }
-        System.out.println(Arrays.toString(array3));
     }
 
-    public static void whichHalfIsBigger(int[] array4) {
+    public static void findTheBiggerHalf(int[] array4) {
         int sumLeft = 0;
         int sumRight = 0;
         for (int i = 0; i < array4.length / 2; i++) {
@@ -74,7 +72,7 @@ public class HomeWorkPanichenko {
         System.out.println(Arrays.toString(arrayResult));
     }
 
-    public static void thePoint(int[] array9) {
+    public static void findEquilibriumPoint(int[] array9) {
         for (int i = 1; i < array9.length; i++) {
             int leftSide = 0;
             int rightSide = 0;
