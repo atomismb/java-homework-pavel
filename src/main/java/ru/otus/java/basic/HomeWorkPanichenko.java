@@ -2,7 +2,7 @@ package ru.otus.java.basic;
 
 public class HomeWorkPanichenko {
     public static void main(String[] args) {
-    }
+        }
 
     public static int sumPositiveElements(int[][] array) {
         int sum = 0;
@@ -16,7 +16,8 @@ public class HomeWorkPanichenko {
         return sum;
     }
 
-    public static void drawSquare(int[][] array2) {
+    public static void drawSquare(int size) {
+        int[][] array2 = new int[size][size];
         for (int i = 0; i < array2.length; i++) {
             System.out.println();
             for (int j = 0; j < array2[i].length; j++) {
@@ -37,7 +38,7 @@ public class HomeWorkPanichenko {
     }
 
     public static int findMax(int[][] array4) {
-        int max = 0;
+        int max = array4[0][0];
         for (int i = 0; i < array4.length; i++) {
             for (int j = 0; j < array4[i].length; j++) {
                 if (array4[i][j] > max) {
