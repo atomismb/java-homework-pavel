@@ -17,10 +17,9 @@ public class HomeWorkPanichenko {
     }
 
     public static void drawSquare(int size) {
-        int[][] array2 = new int[size][size];
-        for (int i = 0; i < array2.length; i++) {
+        for (int i = 0; i < size; i++) {
             System.out.println();
-            for (int j = 0; j < array2[i].length; j++) {
+            for (int j = 0; j < size; j++) {
                 System.out.print("*");
             }
         }
