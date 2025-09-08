@@ -15,17 +15,14 @@ public class HomeWorkPanichenko {
                 new User("Руслан", "Бровадов", "Корнелиевич", 1989, "bromgexin@kuy.de")
         };
 
-
         for (int i = 0; i < users.length; i++) {
             int birthYear = users[i].getBirthYear();
             if ((2025 - birthYear) > 40) {
                 users[i].info();
                 System.out.println();
             }
-
         }
-
-
     }
+
 
 }

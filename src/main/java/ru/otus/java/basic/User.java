@@ -26,6 +26,7 @@ public class User {
     public String getEmail() {
         return email;
     }
+
     public User(String name, String surname, String otchestvo, int birthYear, String email){
     this.name = name;
     this.surname = surname;
