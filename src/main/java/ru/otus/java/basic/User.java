@@ -27,18 +27,20 @@ public class User {
         return email;
     }
 
-    public User(String name, String surname, String otchestvo, int birthYear, String email){
-    this.name = name;
-    this.surname = surname;
-    this.otchestvo = otchestvo;
-    this.birthYear = birthYear;
-    this.email = email;
+    public User(String name, String surname, String otchestvo, int birthYear, String email) {
+        this.name = name;
+        this.surname = surname;
+        this.otchestvo = otchestvo;
+        this.birthYear = birthYear;
+        this.email = email;
     }
 
     public void info() {
-        System.out.println("ФИО: " + surname + " " + name + " " + otchestvo);
-        System.out.println("Год рождения: " + birthYear);
-        System.out.println("email: " + email);
+        if (2025 - birthYear > 40) {
+            System.out.println("ФИО: " + surname + " " + name + " " + otchestvo);
+            System.out.println("Год рождения: " + birthYear);
+            System.out.println("email: " + email);
+        }
     }
 }
 

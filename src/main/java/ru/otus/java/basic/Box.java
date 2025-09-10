@@ -10,6 +10,10 @@ public class Box {
     private String predmet;
 
     public void setColor(String color) {
+        if (!boxState) {
+            System.out.println("Нельзя перекрасить закрытую коробку!");
+            return;
+        }
         this.color = color;
     }
 
@@ -46,17 +50,29 @@ public class Box {
         System.out.println("Цвет: " + color);
     }
 
-    public void putGetThing() {
-        if (!boxState){
+    public void putThing() {
+        if (!boxState) {
             System.out.println("Коробка закрыта! Сперва откройте её.");
             return;
         }
-        if (!smthInTheBox) {
-            System.out.println("Вы кладёте " + predmet + " в пустую коробку");
+        if (smthInTheBox) {
+            System.out.println("В коробке лежит " + predmet + ", вы не можете положить в коробку ничего");
+        } else {
+            System.out.println("Вы кладёте " + predmet + " в коробку");
             smthInTheBox = true;
-        }  else {
+        }
+    }
+
+    public void getThing() {
+        if (!boxState) {
+            System.out.println("Коробка закрыта! Сперва откройте её.");
+            return;
+        }
+        if (smthInTheBox) {
             System.out.println("Вы достаёте " + predmet + " из коробки");
             smthInTheBox = false;
+        } else {
+            System.out.println("В коробке ничего нет, она пуста");
         }
     }
 }
