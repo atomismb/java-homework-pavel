@@ -28,20 +28,34 @@ public abstract class Animal {
             isTired = true;
         } else {
             System.out.println(name + " пробежал " + distance + " метров за " + timeRun + " секунд!");
-
         }
         return timeRun;
     }
 
-    public abstract float swim(int distance);
-    public void info(){
-        if (isTired){
-            System.out.println(name + " устал");
+    protected abstract int getStaminaCost(int distance);
+
+    public float swim(int distance) {
+        if (stamina < getStaminaCost(distance)) {
+            System.out.println("У " + name + " появилось состояние усталости");
+            isTired = true;
+            return -1;
         }
-        else {
+        float timeSwim = (float) distance / velocitySwim;
+        stamina -= getStaminaCost(distance);
+        if (stamina < 0) {
+            System.out.println("У " + name + " появилось состояние усталости");
+            isTired = true;
+        } else {
+            System.out.println(name + " проплыл " + distance + " метров за " + timeSwim + " секунд!");
+        }
+        return timeSwim;
+    }
+
+    public void info() {
+        if (isTired) {
+            System.out.println(name + " устал");
+        } else {
             System.out.println("У " + name + " осталось " + stamina + " выносливости");
         }
     }
-
-
 }
