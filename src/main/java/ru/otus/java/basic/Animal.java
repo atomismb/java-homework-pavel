@@ -1,11 +1,11 @@
 package ru.otus.java.basic;
 
 public abstract class Animal {
-    String name;
-    int velocityRun;
-    int velocitySwim;
-    int stamina;
-    boolean isTired;
+    protected String name;
+    protected int velocityRun;
+    protected int velocitySwim;
+    protected int stamina;
+    protected boolean isTired;
 
     public Animal(String name, int velocityRun, int velocitySwim, int stamina) {
         this.name = name;
@@ -14,44 +14,23 @@ public abstract class Animal {
         this.stamina = stamina;
     }
 
-    public float run(int distance) {
+    protected float run(int distance) {
         float timeRun;
-        if (stamina < distance) {
+        if (stamina < distance || stamina <= 0 || isTired) {
             System.out.println("У " + name + " появилось состояние усталости");
             isTired = true;
             return -1;
-        }
-        timeRun = (float) distance / velocityRun;
-        stamina -= distance;
-        if (stamina < 0) {
-            System.out.println("У " + name + " появилось состояние усталости");
-            isTired = true;
         } else {
+            timeRun = (float) distance / velocityRun;
+            stamina -= distance;
             System.out.println(name + " пробежал " + distance + " метров за " + timeRun + " секунд!");
         }
         return timeRun;
     }
 
-    protected abstract int getStaminaCost(int distance);
+    protected abstract float swim(int distance);
 
-    public float swim(int distance) {
-        if (stamina < getStaminaCost(distance)) {
-            System.out.println("У " + name + " появилось состояние усталости");
-            isTired = true;
-            return -1;
-        }
-        float timeSwim = (float) distance / velocitySwim;
-        stamina -= getStaminaCost(distance);
-        if (stamina < 0) {
-            System.out.println("У " + name + " появилось состояние усталости");
-            isTired = true;
-        } else {
-            System.out.println(name + " проплыл " + distance + " метров за " + timeSwim + " секунд!");
-        }
-        return timeSwim;
-    }
-
-    public void info() {
+    protected void info() {
         if (isTired) {
             System.out.println(name + " устал");
         } else {
