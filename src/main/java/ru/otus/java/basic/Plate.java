@@ -7,7 +7,7 @@ public class Plate {
     public Plate() {
         foodMax = 100;
         foodCurrent = foodMax;
-        System.out.println("В тарелке лежит " + foodMax + " еды");
+        System.out.println("В тарелке лежит " + foodMax + " еды. Тарелка больше не вмещает");
     }
 
     public int getFoodCurrent() {
@@ -30,7 +30,8 @@ public class Plate {
 
     protected void increaseFood(int amount) {
         if (foodCurrent + amount > foodMax) {
-            System.out.println("Вы пытаетесь положить больше еды, чем вмещает тарелка");
+            foodCurrent = foodMax;
+            System.out.println("Вы заполнили тарелку доверху. Лишняя еда высыпалась из тарелки");
         } else {
             foodCurrent += amount;
             System.out.println("Вы положили в тарелку " + amount + " еды");

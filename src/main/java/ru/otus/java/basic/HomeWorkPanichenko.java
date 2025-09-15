@@ -12,6 +12,11 @@ public class HomeWorkPanichenko {
         for (int i = 0; i < cats.length; i++) {
             cats[i].feedCat(plate);
         }
+        cats[0].feedCat(plate);
+        plate.infoPlate();
+        plate.increaseFood(15);
+        plate.infoPlate();
+        plate.increaseFood(100);
         plate.infoPlate();
     }
 }

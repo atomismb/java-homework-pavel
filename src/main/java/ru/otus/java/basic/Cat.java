@@ -27,8 +27,12 @@ public class Cat {
     }
 
     protected void feedCat(Plate plate) {
-        if (!isHungry || appetite > plate.getFoodCurrent()) {
+        if (!isHungry) {
             System.out.println(name + " сыт и не хочет кушать");
+
+        } else if (appetite > plate.getFoodCurrent()) {
+            System.out.println(name + " не хватает еды в тарелке и он, не поев, недовольный уходит спать. \nСостояние сытости " + name + ": " + !isHungry);
+
         } else {
             plate.decreaseFood(appetite);
             isHungry = false;
