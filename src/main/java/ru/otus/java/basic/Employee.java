@@ -53,7 +53,6 @@ public class Employee {
         } else {
             System.out.println("Средний возраст сотрудников меньше " + avgAge);
         }
-
     }
 
     public static Employee youngestEmployee(ArrayList<Employee> list) {
