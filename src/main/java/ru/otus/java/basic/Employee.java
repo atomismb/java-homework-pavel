@@ -24,15 +24,7 @@ public class Employee {
         return "Сотрудник {имя='" + name + "', возраст=" + age + '}';
     }
 
-    public static ArrayList<String> listOfNames(ArrayList<Employee> list) {
-        ArrayList<String> names = new ArrayList<>();
-        for (Employee employee : list) {
-            names.add(employee.name);
-        }
-        return names;
-    }
-
-    public static ArrayList<String> youngEmployee(ArrayList<Employee> list, int minAge) {
+    public ArrayList<String> youngEmployee(ArrayList<Employee> list, int minAge) {
         ArrayList<String> names = new ArrayList<>();
         for (Employee employee : list) {
             if (employee.age >= minAge) {
@@ -42,30 +34,7 @@ public class Employee {
         return names;
     }
 
-    public static void avarageAge(ArrayList<Employee> list, int avgAge) {
-        int emloyeeAge = 0;
-        for (Employee employee : list) {
-            emloyeeAge += employee.age;
-        }
-        if (emloyeeAge / list.size() >= avgAge) {
-            System.out.println("Средний возраст сотрудников больше " + avgAge);
 
-        } else {
-            System.out.println("Средний возраст сотрудников меньше " + avgAge);
-        }
-    }
 
-    public static Employee youngestEmployee(ArrayList<Employee> list) {
-        if (list.isEmpty()) {
-            return null;
-        } else {
-            Employee youngest = list.get(0);
-            for (Employee employee : list) {
-                if (employee.age < youngest.age) {
-                    youngest = employee;
-                }
-            }
-            return youngest;
-        }
-    }
+
 }
