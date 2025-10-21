@@ -2,10 +2,17 @@ package ru.otus.java.basic;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 public class PersonDataBase {
     private HashMap<Long, Person> personsById;
     private HashSet<Long> employeeIds;
+    private Set<Position> manager = new HashSet<>(Set.of(
+            Position.MANAGER,
+            Position.DIRECTOR,
+            Position.BRANCH_DIRECTOR,
+            Position.SENIOR_MANAGER
+    ));
 
     public PersonDataBase() {
         personsById = new HashMap<>();
@@ -32,11 +39,7 @@ public class PersonDataBase {
             return false;
         }
 
-        Position position = person.getPosition();
-        return position == Position.MANAGER ||
-                position == Position.DIRECTOR ||
-                position == Position.BRANCH_DIRECTOR ||
-                position == Position.SENIOR_MANAGER;
+            return manager.contains(person.getPosition());
     }
 
     public boolean isEmployee(Long id) {

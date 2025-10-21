@@ -8,13 +8,14 @@ public class HomeWorkPanichenko {
         database.add(new Person("Ильдар Наилевич Сайдашев", Position.DIRECTOR, 3L));
         database.add(new Person("Константин Сергеевич Бессонов", Position.QA, 4L));
 
-        Person person = database.findById(2L);
+        Person person = database.findById(3L);
         System.out.println("Найден сотрудник: " + person);
 
         Person manager = database.findById(1L);
         System.out.println("Является ли менеджером сотрудник с ID=" + manager.getId() + ": " + database.isManager(manager));
 
-        System.out.println("Является ли рядовым сотрудником сотрудник с ID=" + person.getId() + ": " + database.isEmployee(3L));
+
+        System.out.println("Является ли рядовым сотрудником сотрудник с ID=" + person.getId() + ": " + database.isEmployee(person.getId()));
 
         int[] array1 = {70, 100, 20, 90, 30, 10, 50};
         System.out.println("Исходный массив: " + java.util.Arrays.toString(array1));
