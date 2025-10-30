@@ -8,12 +8,14 @@ public class FileManager {
     public String readFile(String fileName) throws IOException {
         StringBuilder content = new StringBuilder();
 
-        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileName))) {
-            byte[] buffer = new byte[1024];
-            int bytesRead;
+        try (BufferedReader in = new BufferedReader(
+                new InputStreamReader(
+                        new FileInputStream(fileName), StandardCharsets.UTF_8))) {
+            char[] buffer = new char[1024];
+            int charsRead;
 
-            while ((bytesRead = in.read(buffer)) != -1) {
-                content.append(new String(buffer, 0, bytesRead, StandardCharsets.UTF_8));
+            while ((charsRead = in.read(buffer)) != -1) {
+                content.append(buffer, 0, charsRead);
             }
         }
         return content.toString();
