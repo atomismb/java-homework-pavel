@@ -43,4 +43,18 @@ public class Server {
             c.sendMsg(message);
         }
     }
+    public void privateMessage(String fromUser, String toUser, String message) {
+        for (ClientHandler client : clients) {
+            if (client.getUsername().equals(toUser)) {
+                client.sendMsg("Личное сообщение от " + fromUser + ": " + message);
+                return;
+            }
+        }
+        for (ClientHandler client : clients) {
+            if (client.getUsername().equals(fromUser)) {
+                client.sendMsg("Пользователь " + toUser + " не найден");
+                return;
+            }
+        }
+    }
 }
