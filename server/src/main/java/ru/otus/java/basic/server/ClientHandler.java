@@ -36,7 +36,10 @@ public class ClientHandler {
                             if (tokens.length >= 3) {
                                 String targetUsername = tokens[1];
                                 String privateMessage = tokens[2];
-                                server.privateMessage(username, targetUsername, privateMessage);
+                                boolean status = server.privateMessage(username, targetUsername, privateMessage);
+                                if (!status){
+                                    sendMsg("Пользователя с ником " + targetUsername + " не существует");
+                                }
                             } else {
                                 sendMsg("Неверный формат команды. Используйте: /w username сообщение");
                             }
