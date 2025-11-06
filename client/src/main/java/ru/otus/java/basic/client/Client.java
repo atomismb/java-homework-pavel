@@ -10,6 +10,7 @@ public class Client {
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
+    private boolean connected = true;
 
     public Client() {
         Scanner sc = new Scanner(System.in);
@@ -19,19 +20,18 @@ public class Client {
             out = new DataOutputStream(socket.getOutputStream());
             new Thread(() -> {
                 try {
-                    while (true) {
+                    while (connected && !socket.isClosed()) {
                         String message = in.readUTF();
                         if (message.startsWith("/")) {
                             if (message.startsWith("/exitok")) {
+                                System.out.println("Отключение от сервера...");
                                 break;
                             }
                             if (message.startsWith("/authok ")) {
-                                System.out.println("Удалось успешно войти в чат под именем пользователя "+
-                                message.split(" ")[1]);
+                                System.out.println("Удалось успешно войти в чат под именем пользователя " + message.split(" ")[1]);
                             }
                             if (message.startsWith("/regok ")) {
-                                System.out.println("Удалось успешно пройти регистрацию под ником "+
-                                        message.split(" ")[1]);
+                                System.out.println("Удалось успешно пройти регистрацию под ником " + message.split(" ")[1]);
                             }
 
                         } else {
@@ -39,45 +39,52 @@ public class Client {
                         }
                     }
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    if (connected) {
+                        System.out.println("Соединение с сервером разорвано");
+                    }
                 } finally {
                     disconnect();
                 }
             }).start();
 
-            while (true) {
+            while (connected && !socket.isClosed()) {
                 String message = sc.nextLine();
-                out.writeUTF(message);
-                if (message.startsWith("/exit")) {
+                try {
+                    out.writeUTF(message);
+                    if (message.startsWith("/exit")) {
+                        break;
+                    }
+                } catch (IOException e) {
+                    System.out.println("Не удалось отправить сообщение. Соединение разорвано.");
                     break;
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Не удалось подключиться к серверу: " + e.getMessage());
+        } finally {
+            disconnect();
         }
     }
 
     public void disconnect() {
+        connected = false;
         try {
             if (in != null) {
                 in.close();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
         }
         try {
             if (out != null) {
                 out.close();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
         }
         try {
             if (socket != null) {
                 socket.close();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

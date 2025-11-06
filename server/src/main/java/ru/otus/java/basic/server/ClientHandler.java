@@ -59,7 +59,7 @@ public class ClientHandler {
                                 continue;
                             }
                             if (server.getAuthenticatedProvider()
-                                    .register(this, token[1], token[2], token[3])){
+                                    .register(this, token[1], token[2], token[3])) {
                                 authenticated = true;
                                 sendMsg("Вы подключились с ником: " + username);
                                 break;
@@ -81,13 +81,32 @@ public class ClientHandler {
                                 String targetUsername = tokens[1];
                                 String privateMessage = tokens[2];
                                 boolean status = server.privateMessage(username, targetUsername, privateMessage);
-                                if (!status){
+                                if (!status) {
                                     sendMsg("Пользователя с ником " + targetUsername + " не существует");
                                 }
                             } else {
                                 sendMsg("Неверный формат команды. Используйте: /w username сообщение");
                             }
                         }
+                        if (message.startsWith("/kick") && "admin".equalsIgnoreCase(username)) {
+                            String[] tokens = message.split(" ", 2);
+                            if (tokens.length == 2) {
+                                String kickUsername = tokens[1];
+                                boolean status = server.kickUser(username, kickUsername);
+                                if (status) {
+                                    sendMsg("Пользователь " + kickUsername + " был удалён из чата");
+                                } else {
+                                    if (username.equalsIgnoreCase(kickUsername)) {
+                                        sendMsg("Вы не можете кикнуть самого себя");
+                                    } else {
+                                        sendMsg("Пользователь " + kickUsername + " не найден");
+                                    }
+                                }
+                            } else {
+                                sendMsg("Неверный формат команды. Используйте: /kick username");
+                            }
+                        }
+
 
                     } else {
                         server.broadcastMessage(username, message);

@@ -8,11 +8,13 @@ public class InMemoryAuthenticatedProvider implements AuthenticatedProvider {
         private String login;
         private String password;
         private String username;
+        private String role;
 
-        public User(String login, String password, String username) {
+        public User(String login, String password, String username, String role) {
             this.login = login;
             this.password = password;
             this.username = username;
+            this.role = role;
         }
     }
 
@@ -22,9 +24,9 @@ public class InMemoryAuthenticatedProvider implements AuthenticatedProvider {
     public InMemoryAuthenticatedProvider(Server server) {
         this.server = server;
         this.users = new CopyOnWriteArrayList<>();
-        users.add(new User("qwe", "qwe", "qwe1"));
-        users.add(new User("asd", "asd", "asd1"));
-        users.add(new User("zxc", "zxc", "zxc1"));
+        users.add(new User("admin", "admin", "admin", "admin"));
+        users.add(new User("asd", "asd", "asd1", "user"));
+        users.add(new User("zxc", "zxc", "zxc1", "user"));
     }
 
     private String getUsernameByLoginAndPassword(String login, String password) {
@@ -78,6 +80,7 @@ public class InMemoryAuthenticatedProvider implements AuthenticatedProvider {
 
     @Override
     public boolean register(ClientHandler clientHandler, String login, String password, String username) {
+        String role = "user";
         if (login.length() < 3) {
             clientHandler.sendMsg("Логин должен содержать 3+ символов");
             return false;
@@ -98,7 +101,7 @@ public class InMemoryAuthenticatedProvider implements AuthenticatedProvider {
             clientHandler.sendMsg("Такое имя пользователя уже занято");
             return false;
         }
-        users.add(new User(login, password, username));
+        users.add(new User(login, password, username, role));
         clientHandler.setUsername(username);
         server.subscribe(clientHandler);
         clientHandler.sendMsg("/regok " + username);

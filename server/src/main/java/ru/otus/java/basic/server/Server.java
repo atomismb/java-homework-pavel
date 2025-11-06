@@ -61,7 +61,29 @@ public class Server {
     public boolean privateMessage(String fromUser, String toUser, String message) {
         for (ClientHandler client : clients) {
             if (client.getUsername().equals(toUser)) {
-                client.sendMsg("Личное сообщение от " + fromUser + ": " + message);
+                client.sendMsg(ConsoleColors.PURPLE_BOLD + "Личное сообщение от " + ConsoleColors.RESET
+                        + ConsoleColors.BLUE_BOLD + fromUser + ConsoleColors.RESET + ": " + message);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean kickUser(String adminUsername, String targetUsername) {
+        if (!"admin".equalsIgnoreCase(adminUsername)) {
+            return false;
+        }
+
+        if (adminUsername.equalsIgnoreCase(targetUsername)) {
+            return false;
+        }
+
+        for (ClientHandler client : clients) {
+            if (targetUsername.equalsIgnoreCase(client.getUsername())) {
+                unsubscribe(client);
+                client.sendMsg("Вы были удалены администратором");
+                client.sendMsg("/exitok");
+                client.disconnect();
                 return true;
             }
         }
