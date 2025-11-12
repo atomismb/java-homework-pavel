@@ -69,8 +69,8 @@ public class Server {
         return false;
     }
 
-    public boolean kickUser(String adminUsername, String targetUsername) {
-        if (!"admin".equalsIgnoreCase(adminUsername)) {
+    public boolean kickUser(String adminUsername, String targetUsername, String role) {
+        if (!"admin".equalsIgnoreCase(role)) {
             return false;
         }
 

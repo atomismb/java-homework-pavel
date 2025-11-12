@@ -37,6 +37,14 @@ public class InMemoryAuthenticatedProvider implements AuthenticatedProvider {
         }
         return null;
     }
+    private String getUserRoleByLoginAndPassword(String login, String password){
+        for (User u :users) {
+            if (u.login.equalsIgnoreCase(login) && u.password.equals(password)){
+                return u.role;
+            }
+        }
+        return null;
+    }
 
     private boolean isLoginAlreadyExists(String login) {
         for (User u : users) {
@@ -63,6 +71,7 @@ public class InMemoryAuthenticatedProvider implements AuthenticatedProvider {
 
     @Override
     public boolean authenticate(ClientHandler clientHandler, String login, String password) {
+        String role = getUserRoleByLoginAndPassword(login, password);
         String authUsername = getUsernameByLoginAndPassword(login, password);
         if (authUsername == null) {
             clientHandler.sendMsg("Некорректный логин/пароль");
@@ -73,6 +82,7 @@ public class InMemoryAuthenticatedProvider implements AuthenticatedProvider {
             return false;
         }
         clientHandler.setUsername(authUsername);
+        clientHandler.setRole(role);
         server.subscribe(clientHandler);
         clientHandler.sendMsg("/authok " + authUsername);
         return true;
@@ -103,6 +113,7 @@ public class InMemoryAuthenticatedProvider implements AuthenticatedProvider {
         }
         users.add(new User(login, password, username, role));
         clientHandler.setUsername(username);
+        clientHandler.setRole(role);
         server.subscribe(clientHandler);
         clientHandler.sendMsg("/regok " + username);
         return true;

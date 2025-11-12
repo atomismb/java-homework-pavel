@@ -12,6 +12,7 @@ public class ClientHandler {
     private DataOutputStream out;
 
     private String username;
+    private String role;
     private boolean authenticated;
 
     public ClientHandler(Socket socket, Server server) throws IOException {
@@ -88,11 +89,11 @@ public class ClientHandler {
                                 sendMsg("Неверный формат команды. Используйте: /w username сообщение");
                             }
                         }
-                        if (message.startsWith("/kick") && "admin".equalsIgnoreCase(username)) {
+                        if (message.startsWith("/kick") && "admin".equalsIgnoreCase(role)) {
                             String[] tokens = message.split(" ", 2);
                             if (tokens.length == 2) {
                                 String kickUsername = tokens[1];
-                                boolean status = server.kickUser(username, kickUsername);
+                                boolean status = server.kickUser(username, kickUsername, role);
                                 if (status) {
                                     sendMsg("Пользователь " + kickUsername + " был удалён из чата");
                                 } else {
@@ -134,6 +135,10 @@ public class ClientHandler {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void disconnect() {
