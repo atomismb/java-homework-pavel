@@ -14,7 +14,7 @@ public class Box<T extends Fruit> {
         fruits.add(fruit);
     }
 
-    public void addFruits(List<T> fruits) {
+    public void addFruits(List<? extends T> fruits) {
         this.fruits.addAll(fruits);
     }
 
@@ -30,7 +30,7 @@ public class Box<T extends Fruit> {
         return Math.abs(this.getWeight() - otherBox.getWeight()) < 0.0001;
     }
 
-    public void transferFruitsTo(Box<T> targetBox) {
+    public void transferFruitsTo(Box<? super T> targetBox) {
         if (this == targetBox) {
             return;
         }
