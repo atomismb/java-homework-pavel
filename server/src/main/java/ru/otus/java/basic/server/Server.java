@@ -8,14 +8,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server {
     private int port;
-
     private List<ClientHandler> clients;
     private AuthenticatedProvider authenticatedProvider;
 
     public Server(int port) {
         this.port = port;
         clients = new CopyOnWriteArrayList<>();
-        authenticatedProvider = new InMemoryAuthenticatedProvider(this);
+        authenticatedProvider = new PostgreSQLAuthenticatedProvider(this);
     }
 
     public void start() {
@@ -27,6 +26,8 @@ public class Server {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            authenticatedProvider.closeConnection();
         }
     }
 
