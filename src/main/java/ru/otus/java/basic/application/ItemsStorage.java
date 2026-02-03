@@ -24,4 +24,7 @@ public class ItemsStorage {
         item.setId(items.stream().mapToLong(Item::getId).max().orElse(0) + 1);
         items.add(item);
     }
+    public static void deleteItem(Long id) {
+        items.removeIf(item -> item.getId().equals(id));
+    }
 }

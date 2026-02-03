@@ -2,11 +2,16 @@ package ru.otus.java.basic;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class HttpRequest {
+    private String rawRequest;
     private HttpMethod method;
     private String uri;
     private Map<String, String> params;
+    private String body;
+    private Logger logger = LogManager.getLogger(HttpRequest.class);
 
     public String getUri() {
         return uri;
@@ -14,6 +19,10 @@ public class HttpRequest {
 
     public String getParameter(String name) {
         return params.get(name);
+    }
+
+    public String getBody() {
+        return body;
     }
 
     public boolean containsParameter(String name) {
@@ -25,11 +34,12 @@ public class HttpRequest {
     }
 
     public HttpRequest(String rawRequest) {
-        params = new HashMap<>();
-        parse(rawRequest);
+        this.rawRequest =rawRequest;
+        this.params = new HashMap<>();
+        parse();
     }
 
-    private void parse(String rawRequest) {
+    private void parse() {
         int left = rawRequest.indexOf(" ");
         int right = rawRequest.indexOf(" ", left + 1);
         method = HttpMethod.valueOf(rawRequest.substring(0, left));
@@ -43,12 +53,19 @@ public class HttpRequest {
                 params.put(keyValue[0], keyValue[1]);
             }
         }
+        if (method == HttpMethod.POST) {
+            body = rawRequest.substring(rawRequest.indexOf("\r\n\r\n") + 4);
+        }
     }
 
-    public void info() {
-        System.out.println("METHOD: " + method);
-        System.out.println("URI: " + uri);
-        System.out.println("PARAMS: " + params);
+    public void info(boolean showRawRequest) {
+        logger.info("METHOD: " + method);
+        logger.info("URI: " + uri);
+        logger.info("PARAMS: " + params);
+        logger.info("BODY: " + body);
+        if (showRawRequest) {
+            logger.info("RAW REQUEST: \n" + rawRequest);
+        }
     }
 }
 

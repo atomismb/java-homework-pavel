@@ -5,11 +5,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class HttpServer {
     private int port;
     private Dispatcher dispatcher;
     private ExecutorService threadPool;
+    private Logger logger = LogManager.getLogger(HttpServer.class);
 
     public HttpServer(int port) {
         this.port = port;
@@ -19,7 +22,7 @@ public class HttpServer {
 
     public void start() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Сервер запущен на порту: " + port);
+            logger.info("Сервер запущен на порту: " + port);
             while (true) {
                 try {
                     Socket socket = serverSocket.accept();
@@ -34,16 +37,16 @@ public class HttpServer {
                             HttpRequest request = new HttpRequest(rawRequest);
                             dispatcher.execute(request, clientSocket.getOutputStream());
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            logger.error("Ошибка при обработке подключения: ", e);
                         }
                     });
 
                 } catch (IOException e) {
-                    System.out.println("Ошибка при подключении клиента: " + e.getMessage());
+                    logger.error("Ошибка при подключении клиента: ", e);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Ошибка запуска сервера: ", e);
         }
     }
 }
